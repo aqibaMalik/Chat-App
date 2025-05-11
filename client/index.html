@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User login</title>
+  </head>
+  <style>
+    /* Css Not Working for Checkbox interacted Input followed by checkbox (may be due to compatibility) */
+    #token-container {
+      display: none;
+    }
+
+    #tokenCheck:checked + #token-container {
+      display: block;
+    }
+
+    /*  */
+    * {
+      color: white;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #1d1717;
+    }
+    #usernameForm {
+      background-color: rgb(19, 18, 18);
+      border-radius: 0.5rem;
+      padding: 1rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      width: 200px;
+      height: 35px;
+      font-size: 1rem;
+      margin-top: 2px;
+      margin-bottom: 20px;
+      background-color: black;
+      border: 1px solid #1d1717;
+      padding: 5px;
+      border-radius: 0.25rem;
+    }
+
+    button {
+      all: unset;
+      outline: none;
+      background-color: black;
+      border-radius: 0.25rem;
+      width: 100px;
+      height: 50px;
+      text-align: center;
+    }
+    button:hover {
+      cursor: pointer;
+      background-color: #34383b;
+    }
+  </style>
+  <body>
+    <form action="/index" id="usernameForm">
+      <div>
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="Type Your Username"
+          required
+        />
+      </div>
+
+      <div>
+        <label for="tokenCheck">Check if You have Token for Namespace</label>
+        <input type="checkbox" id="tokenCheck" class="tokenCheck" />
+        <div id="token-container">
+          <label for="token">Enter Token</label>
+          <input type="text" id="token" placeholder="Token is required" />
+        </div>
+      </div>
+      <button type="submit">Enter Chat</button>
+    </form>
+
+    <script>
+      const form = document.forms[0]
+      const tokenCheck = document.getElementById("tokenCheck")
+      const tokenContainer = document.getElementById("token-container")
+      const tokenInput = document.getElementById("token")
+
+      document.addEventListener("DOMContentLoaded", () => {
+        tokenContainer.style.display = "none"
+        tokenCheck.checked = false
+      })
+      tokenCheck.addEventListener("change", () => {
+        if (tokenCheck.checked) {
+          tokenContainer.style.display = "block"
+        } else {
+          tokenContainer.style.display = "none"
+        }
+      })
+      form.addEventListener("submit", (e) => {
+        e.preventDefault()
+        const username = document.getElementById("username").value
+        if (!username) {
+          return
+        }
+        if (tokenInput?.value && tokenCheck.checked) {
+          window.location.href = `/chat.html?username=${username}&token=${tokenInput.value}`
+        } else {
+          window.location.href = `/chat.html?username=${username}`
+        }
+      })
+    </script>
+  </body>
+</html>
