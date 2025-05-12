@@ -26,7 +26,7 @@ Welcome to the Real-Time Chat App — a powerful Node.js-based application that 
 
 ## Instructions:
 ```
-git clone git@github.com:aqibaMalik/Chat-App.git
+git clone https://github.com/aqibaMalik/Chat-App
 cd client
 npm install
 npm run dev/your script
